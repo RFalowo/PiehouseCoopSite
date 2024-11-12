@@ -47,7 +47,8 @@
   <script type="module">
     import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js?v=2';
     import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/FBXLoader.js?v=2';
-  
+    window.THREE = THREE;
+    window.FBXLoader = FBXLoader;
   </script>  
   <script type="module" src="./dist/index.js?v=1.0.0"></script>
 </body>
