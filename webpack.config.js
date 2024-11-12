@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  mode: 'production',
   entry: './src/index.js',
   output: {
     filename: 'index.js',
@@ -17,6 +18,13 @@ module.exports = {
         test: /\.fbx$/,
         loader: 'three-fbx-loader',
       },
+      {
+        test: /\.fbx$/,
+        loader: 'file-loader',
+        options: {
+          name: 'assets/Pie_Goblin_1110143250.fbx',
+        },
+        },
     ],
   },
 };

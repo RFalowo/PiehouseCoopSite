@@ -25,7 +25,7 @@ function init() {
     scene.add(directionalLight);
     // Load Piegoblin model with FBXLoader
     const fbxLoader = new FBXLoader();
-    fbxLoader.load('/assets/Pie_Goblin_1110143250.fbx', (object) => {
+    fbxLoader.load('/Pie_Goblin_1110143250.fbx', (object) => {
         for (let i = 0; i < 10; i++) {
             const piegoblin = object.clone();
             // Change color of the mesh to 0xc4a160
