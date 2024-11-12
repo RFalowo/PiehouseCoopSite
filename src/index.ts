@@ -1,6 +1,9 @@
-declare const THREE: any;
-declare const FBXLoader: any;
+// Import necessary Three.js components
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.130.0/build/three.module.js';
+import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.130.0/examples/jsm/loaders/FBXLoader.js';
 
+
+// Type definition for each Piegoblin instance with rotation speed and position
 interface PiegoblinData {
     mesh: THREE.Group;
     rotationSpeed: { x: number; y: number; z: number };
@@ -36,8 +39,8 @@ function init(): void {
     scene.add(directionalLight);
 
     // Load Piegoblin model with FBXLoader
-    const fbxLoader = new (window as any).FBXLoader();
-    fbxLoader.load('./assets/Pie_Goblin_1110143250.fbx', (object: THREE.Group) => {
+    const fbxLoader = new FBXLoader();
+    fbxLoader.load('/Pie_Goblin_1110143250.fbx', (object: THREE.Group) => {
         for (let i = 0; i < 10; i++) {
             const piegoblin = object.clone() as THREE.Group;
 
@@ -120,7 +123,64 @@ function resetPiegoblinPosition(piegoblin: THREE.Group): void {
 
 // Function to create "COMING SOON" text with mask effect
 function createTextMask(): void {
-    // ... Rest of your code here
+    // Set up an SVG mask with the "COMING SOON" text in two lines
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", "100%");
+    svg.style.position = "absolute";
+    svg.style.top = "0";
+    svg.style.left = "0";
+    svg.style.zIndex = "10"; // Place it above the canvas
+
+    // Define the clipping path
+    const clipPath = document.createElementNS("http://www.w3.org/2000/svg", "clipPath");
+    clipPath.setAttribute("id", "textClip");
+
+    // Dynamically adjust font size based on viewport dimensions
+    const fontSize = Math.min(window.innerWidth, window.innerHeight) * 0.35; // Increased multiplier for larger text
+
+    // Create "COMING" text element
+    const textLine1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    textLine1.setAttribute("x", "50%");
+    textLine1.setAttribute("y", "35%"); // Position slightly higher for first line
+    textLine1.setAttribute("dominant-baseline", "middle");
+    textLine1.setAttribute("text-anchor", "middle");
+    textLine1.setAttribute("font-size", `${fontSize}px`);
+    textLine1.setAttribute("font-family", "Rubik Mono One");
+    textLine1.setAttribute("font-weight", "bold");
+    textLine1.textContent = "COMING";
+
+    // Create "SOON" text element
+    const textLine2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    textLine2.setAttribute("x", "50%");
+    textLine2.setAttribute("y", "65%"); // Position slightly lower for second line
+    textLine2.setAttribute("dominant-baseline", "middle");
+    textLine2.setAttribute("text-anchor", "middle");
+    textLine2.setAttribute("font-size", `${fontSize}px`);
+    textLine2.setAttribute("font-family", "Rubik Mono One");
+    textLine2.setAttribute("font-weight", "bold");
+    textLine2.textContent = "SOON";
+
+    // Append both lines of text to the clipPath
+    clipPath.appendChild(textLine1);
+    clipPath.appendChild(textLine2);
+    svg.appendChild(clipPath);
+    document.body.appendChild(svg);
+
+    // Configure the Three.js canvas to use the SVG text as a clipping path
+    renderer.domElement.style.position = "absolute";
+    renderer.domElement.style.top = "0";
+    renderer.domElement.style.left = "0";
+    renderer.domElement.style.width = "100vw";
+    renderer.domElement.style.height = "100vh";
+    renderer.domElement.style.clipPath = "url(#textClip)"; // Apply the SVG clip path
+    renderer.domElement.style.webkitClipPath = "url(#textClip)"; // For Safari support
+
+    // Set the document body background to white to achieve a white background outside the text
+    document.body.style.backgroundColor = "white";
+
+    // Set the Three.js renderer background to black
+    renderer.setClearColor(0x000000, 1); // Black background
 }
 
 // Initialize scene and create the "COMING SOON" text mask
