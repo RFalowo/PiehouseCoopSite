@@ -1,6 +1,6 @@
 // Import necessary Three.js components
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.130.0/build/three.module.js';
-import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.130.0/examples/jsm/loaders/FBXLoader.js';
+import * as THREE from 'three';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 
 
 // Type definition for each Piegoblin instance with rotation speed and position
