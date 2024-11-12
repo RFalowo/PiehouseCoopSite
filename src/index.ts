@@ -2,6 +2,7 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
 import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/FBXLoader.js';
 
+
 // Type definition for each Piegoblin instance with rotation speed and position
 interface PiegoblinData {
     mesh: THREE.Group;
