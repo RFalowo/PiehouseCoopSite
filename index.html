@@ -44,7 +44,13 @@
   <!-- The "COMING SOON" text mask (styled in TypeScript code for additional control) -->
   <div class="coming-soon">COMING SOON</div>
   <script type="importmap">
-    {"imports": {"three": 'https://cdn.jsdelivr.net/npm/three@0.130.0/build/three.module.js'}}</script>
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.130.0/build/three.module.js",
+            "three/examples/jsm/loaders/FBXLoader.js": "https://cdn.jsdelivr.net/npm/three@0.130.0/examples/jsm/loaders/FBXLoader.js"
+        }
+    }
+    </script>
 
  
   <script type="module" src="./dist/index.js"></script>
