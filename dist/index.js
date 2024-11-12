@@ -1,6 +1,6 @@
 // Import necessary Three.js components
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
-import { FBXLoader } from '/node_modules/three/examples/jsm/loaders/FBXLoader.js';
+import { FBXLoader } from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/FBXLoader.js';
 // Declare variables for scene, camera, renderer, and an array of Piegoblin objects
 let scene;
 let camera;
