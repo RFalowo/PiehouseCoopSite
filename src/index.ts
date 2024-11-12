@@ -1,4 +1,6 @@
-// Type definition for each Piegoblin instance with rotation speed and position
+declare const THREE: any;
+declare const FBXLoader: any;
+
 interface PiegoblinData {
     mesh: THREE.Group;
     rotationSpeed: { x: number; y: number; z: number };
