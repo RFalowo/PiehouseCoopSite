@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
 mode: 'production',
-  entry: './src/index.js',
+  entry: './src/index.ts',
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
@@ -10,9 +10,9 @@ mode: 'production',
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.tsx?$/,
+        use: 'ts-loader',
         exclude: /node_modules/,
-        loader: 'babel-loader',
       },
       {
         test: /\.fbx$/,
@@ -26,5 +26,12 @@ mode: 'production',
         },
         },
     ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
+  output: {
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'dist'),
   },
 };
