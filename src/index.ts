@@ -1,7 +1,7 @@
 // Import necessary Three.js components
-//const THREE = require('three');
-import * as THREE from "three";
+import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { SMAAEffect, SMAAImageLoader, SMAAPreset, EdgeDetectionMode, BlendFunction, TextureEffect, EffectPass, EffectComposer, RenderPass } from 'postprocessing';
 
 // Declare types for Piegoblin data
 interface PiegoblinData {
@@ -15,10 +15,13 @@ let scene: THREE.Scene;
 let camera: THREE.PerspectiveCamera;
 let renderer: THREE.WebGLRenderer;
 let piegoblins: PiegoblinData[] = []; // Array to hold Piegoblin data
+let composer: EffectComposer; // Ensure you have a compatible effect composer, such as from postprocessing library
+let smaaEffect: SMAAEffect;
+let edgesTextureEffect: TextureEffect;
+let effectPass: EffectPass;
 
 // Initialize the Three.js scene
-function init(): void {
-    // Set up scene
+async function init(): Promise<void> {    // Set up scene
     scene = new THREE.Scene();
 
     // Configure camera
@@ -34,7 +37,7 @@ function init(): void {
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
     directionalLight.position.set(0, 1, 1).normalize();
     scene.add(directionalLight);
 
@@ -50,7 +53,13 @@ function init(): void {
             piegoblin.traverse((child: THREE.Object3D) => {
                 if ((child as THREE.Mesh).isMesh) {
                     const mesh = child as THREE.Mesh;
-                    // Assign a new material with the specified color
+                    // Remove existing material if necessary
+                    if (Array.isArray(mesh.material)) {
+                        mesh.material.forEach(material => material.dispose());
+                    } else {
+                        mesh.material.dispose();
+                    }
+                    // Assign a new material with the loaded texture
                     const material = new THREE.MeshStandardMaterial({ map: texture });
                     mesh.material = material;
                 }
@@ -74,7 +83,44 @@ function init(): void {
         }
     });
 
-    animate();
+    // Set up EffectComposer and SMAA
+    composer = new EffectComposer(renderer);
+    
+    // Create render pass and add it to composer
+    const renderPass = new RenderPass(scene, camera);
+    composer.addPass(renderPass);
+    
+    // Load SMAA images
+
+    
+    // Create and configure SMAA effect
+    smaaEffect = new SMAAEffect({
+        preset: SMAAPreset.HIGH,
+        edgeDetectionMode: EdgeDetectionMode.COLOR
+    });
+    
+    // Configure edge detection settings as requested
+    smaaEffect.edgeDetectionMaterial.setEdgeDetectionThreshold(0.005);
+    smaaEffect.edgeDetectionMaterial.setLocalContrastAdaptationFactor(2.3);
+    
+    // Create texture effect for SMAA edges visualization
+    edgesTextureEffect = new TextureEffect({
+        blendFunction: BlendFunction.NORMAL,
+        texture: (smaaEffect as any).renderTargetEdges.texture
+    });
+    
+    // Create effect pass with both effects
+    effectPass = new EffectPass(
+        camera,
+        smaaEffect,
+        edgesTextureEffect
+    );
+    effectPass.encodeOutput = false;
+    
+    // Add effect pass to composer
+    composer.addPass(effectPass);
+
+    animate(); 
 }
 
 // Function to animate Piegoblin objects
@@ -107,7 +153,7 @@ function animate(): void {
         }
     });
 
-    renderer.render(scene, camera);
+    composer.render();
 }
 
 // Reset position to make the Piegoblin reappear at random locations above view

@@ -9,9 +9,8 @@
       "skipLibCheck": true,                  // Skip type checking of declaration files for faster compilation
       "outDir": "./dist",                    // Redirect output structure to a folder
       "rootDir": "./src",                    // Specify the root folder of input files
-      "allowSyntheticDefaultImports": true,  // Support synthetic imports for compatibility with ES modules
-      "jsx": "react",                        // If using React, add JSX support (remove if not using React)
-      "types": ["three"],                    // Include the three.js types
+      "allowSyntheticDefaultImports": true,  // Support synthetic imports for compatibility with ES modules                   // If using React, add JSX support (remove if not using React)
+      "types": ["three", "node"],                    // Include the three.js types
       "resolveJsonModule": true              // Allows importing JSON files as modules
     },
     "include": [
