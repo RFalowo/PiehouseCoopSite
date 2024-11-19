@@ -4,6 +4,7 @@ const path = require('path');
 const files = [
     'texture-pie-18701720.webp',
     'Pie_Goblin_1110143250.fbx',
+    'index.html',
 ];
 for (const file of files) {
     const srcFile = path.join(__dirname, file);
