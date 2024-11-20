@@ -213,6 +213,21 @@ async function init(): Promise<void> {    // Set up scene
             resetTextPosition(textMesh4);
             texts.push({ mesh: textMesh4, rotationSpeed: getRandomRotationSpeed(), fallSpeed: getRandomFallSpeed() });
             scene.add(textMesh4);
+
+            const textGeometry5 = new TextGeometry('SOON', {
+                font: font,
+                size: 1,
+                depth: 1,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.03,
+                bevelSize: 0.02,
+                bevelOffset: 0,
+                bevelSegments: 5
+            });
+            const textMesh5 = new THREE.Mesh(textGeometry5, textMaterial);
+            resetTextPosition(textMesh5);
+            texts.push({ mesh: textMesh5, rotationSpeed: getRandomRotationSpeed(), fallSpeed: getRandomFallSpeed() });
         }
         loadingScreen.style.display = 'none';
 
