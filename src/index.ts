@@ -46,7 +46,7 @@ style.innerHTML = `
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 5em;
+    font-size: 4em;
     font-family: 'Rubik Beastly', sans-serif; /* Use Google Font */
     z-index: 1000;
   }
@@ -325,7 +325,7 @@ function animate(): void {
 // Reset position to make the Piegoblin reappear at random locations above view
 function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
     piegoblin.position.set(
-        Math.random() * 15 - 10, // Random X position, spaced out horizontally
+        Math.random() * 15 - 7, // Random X position, spaced out horizontally
         30, // Random Y position, spaced out vertically above view
         Math.random() * 20  // Random Z position, allowing greater depth range
     );
