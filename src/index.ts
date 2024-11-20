@@ -1,6 +1,8 @@
 // Import necessary Three.js components
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 import { SMAAEffect, SMAAImageLoader, SMAAPreset, EdgeDetectionMode, BlendFunction, TextureEffect, EffectPass, EffectComposer, RenderPass } from 'postprocessing';
 
 // Function to dynamically load Google Fonts
@@ -31,11 +33,19 @@ interface PiegoblinData {
     fallSpeed: number;
 }
 
+// Declare types for Text data
+interface TextData {
+    mesh: THREE.Mesh;
+    rotationSpeed: { x: number; y: number; z: number };
+    fallSpeed: number;
+}
+
 // Declare variables for scene, camera, renderer, and an array of Piegoblin objects
 let scene: THREE.Scene;
 let camera: THREE.PerspectiveCamera;
 let renderer: THREE.WebGLRenderer;
 let piegoblins: PiegoblinData[] = []; // Array to hold Piegoblin data
+let texts: TextData[] = []; // Array to hold Text data
 let composer: EffectComposer; // Ensure you have a compatible effect composer, such as from postprocessing library
 let smaaEffect: SMAAEffect;
 let edgesTextureEffect: TextureEffect;
@@ -104,6 +114,45 @@ async function init(): Promise<void> {    // Set up scene
         }
     });
 
+    // Load font and create text meshes
+    const fontLoader = new FontLoader();
+    fontLoader.load('path/to/font.json', (font) => {
+        const textMaterial = new THREE.MeshStandardMaterial({ color: 0xc4a160 });
+
+        for (let i = 0; i < 10; i++) {
+            const textGeometry1 = new TextGeometry('COMING', {
+                font: font,
+                size: 1,
+                height: 0.2,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.03,
+                bevelSize: 0.02,
+                bevelOffset: 0,
+                bevelSegments: 5
+            });
+            const textMesh1 = new THREE.Mesh(textGeometry1, textMaterial);
+            resetTextPosition(textMesh1);
+            texts.push({ mesh: textMesh1, rotationSpeed: getRandomRotationSpeed(), fallSpeed: getRandomFallSpeed() });
+            scene.add(textMesh1);
+
+            const textGeometry2 = new TextGeometry('SOON', {
+                font: font,
+                size: 1,
+                height: 0.2,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.03,
+                bevelSize: 0.02,
+                bevelOffset: 0,
+                bevelSegments: 5
+            });
+            const textMesh2 = new THREE.Mesh(textGeometry2, textMaterial);
+            resetTextPosition(textMesh2);
+            texts.push({ mesh: textMesh2, rotationSpeed: getRandomRotationSpeed(), fallSpeed: getRandomFallSpeed() });
+            scene.add(textMesh2);
+        }
+    });
     // Set up EffectComposer and SMAA
     composer = new EffectComposer(renderer);
     
@@ -168,9 +217,26 @@ function animate(): void {
             }
         });
 
+        
+
         // Reset position if out of view (optimization)
         if (piegoblinData.mesh.position.y < -50) { // Drop objects further out of view
             resetPiegoblinPosition(piegoblinData.mesh);
+        }
+    });
+
+    texts.forEach((textData, index) => {
+        // Apply falling animation with varying speeds
+        textData.mesh.position.y -= textData.fallSpeed;
+
+        // Apply unique rotation speeds
+        textData.mesh.rotation.x += textData.rotationSpeed.x;
+        textData.mesh.rotation.y += textData.rotationSpeed.y;
+        textData.mesh.rotation.z += textData.rotationSpeed.z;
+
+        // Reset position if out of view (optimization)
+        if (textData.mesh.position.y < 50) { // Drop objects further out of view
+            resetTextPosition(textData.mesh);
         }
     });
 
@@ -184,6 +250,29 @@ function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
         35 + Math.random() * 10, // Random Y position, spaced out vertically above view
         Math.random() * 50 - 25 // Random Z position, allowing greater depth range
     );
+}
+
+// Function to reset position of text objects
+function resetTextPosition(text: THREE.Object3D): void {
+    text.position.set(
+        Math.random() * 40 - 20, // Random X position, spaced out horizontally
+        35 + Math.random() * 10, // Random Y position, spaced out vertically above view
+        Math.random() * 50 - 25 // Random Z position, allowing greater depth range
+    );
+}
+
+// Function to get random rotation speed
+function getRandomRotationSpeed(): { x: number; y: number; z: number } {
+    return {
+        x: Math.random() * 0.02 - 0.01,
+        y: Math.random() * 0.02 - 0.01,
+        z: Math.random() * 0.02 - 0.01
+    };
+}
+
+// Function to get random fall speed
+function getRandomFallSpeed(): number {
+    return Math.random() * 0.03 + 0.02; // Increase range of fall speed
 }
 
 // Function to create "COMING SOON" text with mask effect
@@ -258,4 +347,4 @@ function createTextMask(): void {
 
 // Initialize scene and create the "COMING SOON" text mask
 init();
-createTextMask();
+//createTextMask();
