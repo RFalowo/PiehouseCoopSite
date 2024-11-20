@@ -115,7 +115,7 @@ async function init(): Promise<void> {    // Set up scene
     fontLoader.load('Rubik_Beastly_Regular.json', (font) => {
         const textMaterial = new THREE.MeshStandardMaterial({ color: 0xc4a160 });
 
-        for (let i = 0; i <5; i++) {
+        for (let i = 0; i <3; i++) {
             const textGeometry1 = new TextGeometry('COMING', {
                 font: font,
                 size: 1.7,
@@ -147,6 +147,38 @@ async function init(): Promise<void> {    // Set up scene
             resetTextPosition(textMesh2);
             texts.push({ mesh: textMesh2, rotationSpeed: getRandomRotationSpeed(), fallSpeed: getRandomFallSpeed() });
             scene.add(textMesh2);
+
+            const textGeometry3 = new TextGeometry('BACK', {
+                font: font,
+                size: 1,
+                depth: 1,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.03,
+                bevelSize: 0.02,
+                bevelOffset: 0,
+                bevelSegments: 5
+            });
+            const textMesh3 = new THREE.Mesh(textGeometry3, textMaterial);
+            resetTextPosition(textMesh3);
+            texts.push({ mesh: textMesh3, rotationSpeed: getRandomRotationSpeed(), fallSpeed: getRandomFallSpeed() });
+            scene.add(textMesh3);
+    
+            const textGeometry4 = new TextGeometry('COME', {
+                font: font,
+                size: 1,
+                depth: 1,
+                curveSegments: 12,
+                bevelEnabled: true,
+                bevelThickness: 0.03,
+                bevelSize: 0.02,
+                bevelOffset: 0,
+                bevelSegments: 5
+            });
+            const textMesh4 = new THREE.Mesh(textGeometry4, textMaterial);
+            resetTextPosition(textMesh4);
+            texts.push({ mesh: textMesh4, rotationSpeed: getRandomRotationSpeed(), fallSpeed: getRandomFallSpeed() });
+            scene.add(textMesh4);
         }
     });
     // Set up EffectComposer and SMAA
