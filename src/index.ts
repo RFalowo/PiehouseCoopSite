@@ -334,7 +334,7 @@ function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
 // Function to reset position of text objects
 function resetTextPosition(text: THREE.Object3D): void {
     text.position.set(
-        Math.random() * 50 - 20, // Random X position, spaced out horizontally
+        Math.random() * 50 - 25, // Random X position, spaced out horizontally
         30, // Random Y position, spaced out vertically above view
         Math.random() * 20 - 10 // Random Z position, allowing greater depth range
     );
