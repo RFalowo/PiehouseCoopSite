@@ -116,18 +116,18 @@ async function init(): Promise<void> {    // Set up scene
 
     // Load font and create text meshes
     const fontLoader = new FontLoader();
-    fontLoader.load('path/to/font.json', (font) => {
+    fontLoader.load('Rubik_Beastly_Regular.json', (font) => {
         const textMaterial = new THREE.MeshStandardMaterial({ color: 0xc4a160 });
 
         for (let i = 0; i < 10; i++) {
             const textGeometry1 = new TextGeometry('COMING', {
                 font: font,
-                size: 1,
-                height: 0.2,
-                curveSegments: 12,
+                size: 1.7,
+                depth: 1,
+                curveSegments: 36,
                 bevelEnabled: true,
-                bevelThickness: 0.03,
-                bevelSize: 0.02,
+                bevelThickness: 0.1,
+                bevelSize: 0.2,
                 bevelOffset: 0,
                 bevelSegments: 5
             });
@@ -138,12 +138,12 @@ async function init(): Promise<void> {    // Set up scene
 
             const textGeometry2 = new TextGeometry('SOON', {
                 font: font,
-                size: 1,
-                height: 0.2,
-                curveSegments: 12,
+                size: 1.7,
+                depth: 1,
+                curveSegments: 36,
                 bevelEnabled: true,
-                bevelThickness: 0.03,
-                bevelSize: 0.02,
+                bevelThickness: 0.1,
+                bevelSize: 0.2,
                 bevelOffset: 0,
                 bevelSegments: 5
             });
@@ -235,7 +235,7 @@ function animate(): void {
         textData.mesh.rotation.z += textData.rotationSpeed.z;
 
         // Reset position if out of view (optimization)
-        if (textData.mesh.position.y < 50) { // Drop objects further out of view
+        if (textData.mesh.position.y < -50) { // Drop objects further out of view
             resetTextPosition(textData.mesh);
         }
     });
