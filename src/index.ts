@@ -276,7 +276,7 @@ function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
     piegoblin.position.set(
         Math.random() * 40 - 20, // Random X position, spaced out horizontally
         50, // Random Y position, spaced out vertically above view
-        Math.random() * 40 - 25 // Random Z position, allowing greater depth range
+        Math.random() * 40 - 15 // Random Z position, allowing greater depth range
     );
 }
 
