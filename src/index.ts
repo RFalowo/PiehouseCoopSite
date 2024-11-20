@@ -136,7 +136,7 @@ async function init(): Promise<void> {    // Set up scene
                 y: Math.random() * 0.025 - 0.01,
                 z: Math.random() * 0.025 - 0.01
             };
-            const fallSpeed = Math.random() * 0.1 + 0.02; // Increase range of fall speed
+            const fallSpeed = Math.random() * 0.6 + 0.02; // Increase range of fall speed
 
             // Add the piegoblin and its properties to the array
             piegoblins.push({ mesh: piegoblin, rotationSpeed, fallSpeed });
@@ -230,7 +230,7 @@ async function init(): Promise<void> {    // Set up scene
             texts.push({ mesh: textMesh5, rotationSpeed: getRandomRotationSpeed(), fallSpeed: getRandomFallSpeed() });
         }
         loadingScreen.style.display = 'none';
-        
+
         setTimeout(() => {
             window.location.href = 'https://www.crowdfunder.co.uk/p/the-piehouse-returns-help-us-open-the-doors'; // Replace with your desired URL
         }, 30000); // 30 seconds in milliseconds
@@ -355,7 +355,7 @@ function getRandomRotationSpeed(): { x: number; y: number; z: number } {
 
 // Function to get random fall speed
 function getRandomFallSpeed(): number {
-    return Math.random() * 0.1 + 0.02; // Increase range of fall speed
+    return Math.random() * 0.6 + 0.02; // Increase range of fall speed
 }
 
 // Function to create "COMING SOON" text with mask effect
