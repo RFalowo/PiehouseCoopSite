@@ -3,6 +3,27 @@ import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { SMAAEffect, SMAAImageLoader, SMAAPreset, EdgeDetectionMode, BlendFunction, TextureEffect, EffectPass, EffectComposer, RenderPass } from 'postprocessing';
 
+// Function to dynamically load Google Fonts
+function loadGoogleFonts(): void {
+    const link1 = document.createElement('link');
+    link1.rel = 'preconnect';
+    link1.href = 'https://fonts.googleapis.com';
+    document.head.appendChild(link1);
+
+    const link2 = document.createElement('link');
+    link2.rel = 'preconnect';
+    link2.href = 'https://fonts.gstatic.com';
+    link2.crossOrigin = 'anonymous';
+    document.head.appendChild(link2);
+
+    const link3 = document.createElement('link');
+    link3.href = 'https://fonts.googleapis.com/css2?family=Rubik+Beastly&family=Rubik+Mono+One&display=swap';
+    link3.rel = 'stylesheet';
+    document.head.appendChild(link3);
+}
+
+// Call the function to load Google Fonts
+loadGoogleFonts();
 // Declare types for Piegoblin data
 interface PiegoblinData {
     mesh: THREE.Object3D;
@@ -43,7 +64,7 @@ async function init(): Promise<void> {    // Set up scene
 
     // Load Piegoblin model with FBXLoader
     const fbxLoader = new FBXLoader();
-    fbxLoader.load('../Pie_Goblin_1110143250.fbx', (object: THREE.Object3D) => {
+    fbxLoader.load('Pie_Goblin_1110143250.fbx', (object: THREE.Object3D) => {
         const textureLoader = new THREE.TextureLoader();
         const texture = textureLoader.load('texture-pie-18701720.webp'); 
         for (let i = 0; i < 10; i++) {
@@ -190,7 +211,7 @@ function createTextMask(): void {
     textLine1.setAttribute("dominant-baseline", "middle");
     textLine1.setAttribute("text-anchor", "middle");
     textLine1.setAttribute("font-size", `${fontSize}px`);
-    textLine1.setAttribute("font-family", "Rubik Mono One");
+    textLine1.setAttribute("font-family", "Rubik Beastly");
     textLine1.setAttribute("font-weight", "bold");
     textLine1.textContent = "COMING";
 
@@ -201,7 +222,7 @@ function createTextMask(): void {
     textLine2.setAttribute("dominant-baseline", "middle");
     textLine2.setAttribute("text-anchor", "middle");
     textLine2.setAttribute("font-size", `${fontSize}px`);
-    textLine2.setAttribute("font-family", "Rubik Mono One");
+    textLine2.setAttribute("font-family", "Rubik Beastly");
     textLine2.setAttribute("font-weight", "bold");
     textLine2.textContent = "SOON";
 
@@ -221,7 +242,7 @@ function createTextMask(): void {
     (renderer.domElement.style as any).webkitClipPath = "url(#textClip)"; // For Safari support
 
     // Set the document body background to white to achieve a white background outside the text
-    document.body.style.backgroundColor = "white";
+    document.body.style.backgroundColor = "#b2a7a4 ";
 
     // Set the Three.js renderer background to black
     renderer.setClearColor(0x000000, 1); // Black background
