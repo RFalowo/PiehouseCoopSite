@@ -330,7 +330,7 @@ function animate(): void {
 function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
     piegoblin.position.set(
         Math.random() * 15 - 7, // Random X position, spaced out horizontally
-        30, // Random Y position, spaced out vertically above view
+        35, // Random Y position, spaced out vertically above view
         Math.random() * 20  // Random Z position, allowing greater depth range
     );
 }
@@ -339,7 +339,7 @@ function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
 function resetTextPosition(text: THREE.Object3D): void {
     text.position.set(
         Math.random() * 50 - 25, // Random X position, spaced out horizontally
-        30, // Random Y position, spaced out vertically above view
+        35, // Random Y position, spaced out vertically above view
         Math.random() * 20 - 10 // Random Z position, allowing greater depth range
     );
 }
