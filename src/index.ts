@@ -202,7 +202,7 @@ function createTextMask(): void {
     clipPath.setAttribute("id", "textClip");
 
     // Dynamically adjust font size based on viewport dimensions
-    const fontSize = Math.min(window.innerWidth, window.innerHeight) * 0.3; // Increased multiplier for larger text
+    const fontSize = Math.min(window.innerWidth, window.innerHeight) *  (window.innerWidth < 768 ? 0.15 : 0.3); // Increased multiplier for larger text and disciminate between mobile and desktop
 
     // Create "COMING" text element
     const textLine1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -213,7 +213,7 @@ function createTextMask(): void {
     textLine1.setAttribute("font-size", `${fontSize}px`);
     textLine1.setAttribute("font-family", "Frijole");
     textLine1.setAttribute("font-weight", "bold");
-    textLine1.setAttribute("letter-spacing", "-0.05em"); // Adjust letter spacing for overlap
+    textLine1.setAttribute("letter-spacing", "-0.15em"); // Adjust letter spacing for overlap
     textLine1.textContent = "COMING";
 
     // Create "SOON" text element
@@ -225,7 +225,7 @@ function createTextMask(): void {
     textLine2.setAttribute("font-size", `${fontSize}px`);
     textLine2.setAttribute("font-family", "Frijole");
     textLine2.setAttribute("font-weight", "bold");
-    textLine2.setAttribute("letter-spacing", "-0.05em"); // Adjust letter spacing for overlap
+    textLine2.setAttribute("letter-spacing", "-0.15em"); // Adjust letter spacing for overlap
     textLine2.textContent = "SOON";
 
     // Append both lines of text to the clipPath
