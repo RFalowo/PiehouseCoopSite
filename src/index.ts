@@ -1,3 +1,6 @@
+document.body.style.backgroundColor = 'black';
+
+
 // Import necessary Three.js components
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
@@ -26,6 +29,37 @@ function loadGoogleFonts(): void {
 
 // Call the function to load Google Fonts
 loadGoogleFonts();
+
+// Add CSS for the loading screen
+const style = document.createElement('style');
+style.innerHTML = `
+  body {
+    margin: 0;
+    background-color: black; /* Set background color to black */
+  }
+  #loading-screen {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5em;
+    font-family: 'Rubik Beastly', sans-serif; /* Use Google Font */
+    z-index: 1000;
+  }
+`;
+document.head.appendChild(style);
+
+// Add HTML for the loading screen
+const loadingScreen = document.createElement('div');
+loadingScreen.id = 'loading-screen';
+loadingScreen.textContent = 'Loading...';
+document.body.appendChild(loadingScreen);
+
+
 // Declare types for Piegoblin data
 interface PiegoblinData {
     mesh: THREE.Object3D;
@@ -68,8 +102,8 @@ async function init(): Promise<void> {    // Set up scene
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
-    directionalLight.position.set(0, 1, 1).normalize();
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 10);
+    directionalLight.position.set(0, 1, 0).normalize();
     scene.add(directionalLight);
 
     // Load Piegoblin model with FBXLoader
@@ -98,11 +132,11 @@ async function init(): Promise<void> {    // Set up scene
 
             // Generate random rotation speeds and fall speed
             const rotationSpeed = {
-                x: Math.random() * 0.02 - 0.01,
-                y: Math.random() * 0.02 - 0.01,
-                z: Math.random() * 0.02 - 0.01
+                x: Math.random() * 0.025 - 0.01,
+                y: Math.random() * 0.025 - 0.01,
+                z: Math.random() * 0.025 - 0.01
             };
-            const fallSpeed = Math.random() * 0.05 + 0.02; // Increase range of fall speed
+            const fallSpeed = Math.random() * 0.1 + 0.02; // Increase range of fall speed
 
             // Add the piegoblin and its properties to the array
             piegoblins.push({ mesh: piegoblin, rotationSpeed, fallSpeed });
@@ -180,13 +214,15 @@ async function init(): Promise<void> {    // Set up scene
             texts.push({ mesh: textMesh4, rotationSpeed: getRandomRotationSpeed(), fallSpeed: getRandomFallSpeed() });
             scene.add(textMesh4);
         }
+        loadingScreen.style.display = 'none';
+
     });
     // Set up EffectComposer and SMAA
     composer = new EffectComposer(renderer);
     
     // Create render pass and add it to composer
     const renderPass = new RenderPass(scene, camera);
-    composer.addPass(renderPass);
+    composer.addPass(renderPass); 
     
     // Load SMAA images
 
@@ -238,7 +274,7 @@ function animate(): void {
         piegoblins.forEach((otherPiegoblin, otherIndex) => {
             if (index !== otherIndex) {
                 const distance = piegoblinData.mesh.position.distanceTo(otherPiegoblin.mesh.position);
-                if (distance < 1) { // Adjust this threshold as needed
+                if (distance < 3) { // Adjust this threshold as needed
                     piegoblinData.mesh.position.x += (piegoblinData.mesh.position.x - otherPiegoblin.mesh.position.x) * 0.01;
                     piegoblinData.mesh.position.z += (piegoblinData.mesh.position.z - otherPiegoblin.mesh.position.z) * 0.01;
                 }
@@ -263,7 +299,7 @@ function animate(): void {
         textData.mesh.rotation.z += textData.rotationSpeed.z;
 
         // Reset position if out of view (optimization)
-        if (textData.mesh.position.y < -50) { // Drop objects further out of view
+        if (textData.mesh.position.y < -40) { // Drop objects further out of view
             resetTextPosition(textData.mesh);
         }
     });
@@ -274,33 +310,33 @@ function animate(): void {
 // Reset position to make the Piegoblin reappear at random locations above view
 function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
     piegoblin.position.set(
-        Math.random() * 40 - 20, // Random X position, spaced out horizontally
-        50, // Random Y position, spaced out vertically above view
-        Math.random() * 40 - 15 // Random Z position, allowing greater depth range
+        Math.random() * 15 - 10, // Random X position, spaced out horizontally
+        30, // Random Y position, spaced out vertically above view
+        Math.random() * 20  // Random Z position, allowing greater depth range
     );
 }
 
 // Function to reset position of text objects
 function resetTextPosition(text: THREE.Object3D): void {
     text.position.set(
-        Math.random() * 40 - 20, // Random X position, spaced out horizontally
-        50, // Random Y position, spaced out vertically above view
-        Math.random() * 40 - 25 // Random Z position, allowing greater depth range
+        Math.random() * 50 - 20, // Random X position, spaced out horizontally
+        30, // Random Y position, spaced out vertically above view
+        Math.random() * 20 - 10 // Random Z position, allowing greater depth range
     );
 }
 
 // Function to get random rotation speed
 function getRandomRotationSpeed(): { x: number; y: number; z: number } {
     return {
-        x: Math.random() * 0.02 - 0.01,
-        y: Math.random() * 0.02 - 0.01,
-        z: Math.random() * 0.02 - 0.01
+        x: Math.random() * 0.025 - 0.01,
+        y: Math.random() * 0.025 - 0.01,
+        z: Math.random() * 0.025 - 0.01
     };
 }
 
 // Function to get random fall speed
 function getRandomFallSpeed(): number {
-    return Math.random() * 0.06 + 0.02; // Increase range of fall speed
+    return Math.random() * 0.1 + 0.02; // Increase range of fall speed
 }
 
 // Function to create "COMING SOON" text with mask effect
@@ -372,6 +408,11 @@ function createTextMask(): void {
     // Set the Three.js renderer background to black
     renderer.setClearColor(0x000000, 1); // Black background
 }
+// Add event listener to redirect to another site when clicked anywhere
+document.addEventListener('click', () => {
+    window.location.href = 'https://www.crowdfunder.co.uk/p/the-piehouse-returns-help-us-open-the-doors'; // Replace with your desired URL
+});
+
 
 // Initialize scene and create the "COMING SOON" text mask
 init();

@@ -8,7 +8,10 @@ mode: 'production',
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [new HtmlWebpackPlugin()],
+  plugins: [new HtmlWebpackPlugin({
+    title: 'Piehouse Coop',
+   
+  })],
   module: {
     rules: [
       {
