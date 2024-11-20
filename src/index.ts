@@ -230,6 +230,10 @@ async function init(): Promise<void> {    // Set up scene
             texts.push({ mesh: textMesh5, rotationSpeed: getRandomRotationSpeed(), fallSpeed: getRandomFallSpeed() });
         }
         loadingScreen.style.display = 'none';
+        
+        setTimeout(() => {
+            window.location.href = 'https://www.crowdfunder.co.uk/p/the-piehouse-returns-help-us-open-the-doors'; // Replace with your desired URL
+        }, 30000); // 30 seconds in milliseconds
 
     });
     // Set up EffectComposer and SMAA
