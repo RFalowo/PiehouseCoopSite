@@ -169,7 +169,7 @@ function animate(): void {
         });
 
         // Reset position if out of view (optimization)
-        if (piegoblinData.mesh.position.y < -30) { // Drop objects further out of view
+        if (piegoblinData.mesh.position.y < -50) { // Drop objects further out of view
             resetPiegoblinPosition(piegoblinData.mesh);
         }
     });
@@ -181,7 +181,7 @@ function animate(): void {
 function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
     piegoblin.position.set(
         Math.random() * 40 - 20, // Random X position, spaced out horizontally
-        25 + Math.random() * 10, // Random Y position, spaced out vertically above view
+        35 + Math.random() * 10, // Random Y position, spaced out vertically above view
         Math.random() * 50 - 25 // Random Z position, allowing greater depth range
     );
 }
@@ -203,29 +203,35 @@ function createTextMask(): void {
 
     // Dynamically adjust font size based on viewport dimensions
     const fontSize = Math.min(window.innerWidth, window.innerHeight) *  (window.innerWidth < 768 ? 0.15 : 0.3); // Increased multiplier for larger text and disciminate between mobile and desktop
+    const heightStretch = window.innerWidth < 768 ? 1.5 : 2; 
+
 
     // Create "COMING" text element
     const textLine1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
     textLine1.setAttribute("x", "50%");
-    textLine1.setAttribute("y", "35%"); // Position slightly higher for first line
+    textLine1.setAttribute("y", window.innerWidth < 768 ? "20%" : "15%");
     textLine1.setAttribute("dominant-baseline", "middle");
     textLine1.setAttribute("text-anchor", "middle");
     textLine1.setAttribute("font-size", `${fontSize}px`);
     textLine1.setAttribute("font-family", "Frijole");
     textLine1.setAttribute("font-weight", "bold");
-    textLine1.setAttribute("letter-spacing", "-0.15em"); // Adjust letter spacing for overlap
+    textLine1.setAttribute("letter-spacing", window.innerWidth < 768 ? "-0.15em" : "-0.18em");
+    textLine1.setAttribute("transform", `scale(1, ${heightStretch})`);
+
     textLine1.textContent = "COMING";
 
     // Create "SOON" text element
     const textLine2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
     textLine2.setAttribute("x", "50%");
-    textLine2.setAttribute("y", "65%"); // Position slightly lower for second line
+    textLine2.setAttribute("y", window.innerWidth < 768 ? "40%" : "35%");
     textLine2.setAttribute("dominant-baseline", "middle");
     textLine2.setAttribute("text-anchor", "middle");
     textLine2.setAttribute("font-size", `${fontSize}px`);
     textLine2.setAttribute("font-family", "Frijole");
     textLine2.setAttribute("font-weight", "bold");
-    textLine2.setAttribute("letter-spacing", "-0.15em"); // Adjust letter spacing for overlap
+    textLine2.setAttribute("letter-spacing", window.innerWidth < 768 ? "-0.15em" : "-0.18em");
+    textLine2.setAttribute("transform", `scale(1, ${heightStretch})`);
+
     textLine2.textContent = "SOON";
 
     // Append both lines of text to the clipPath
