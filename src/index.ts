@@ -75,26 +75,10 @@ async function init(): Promise<void> {    // Set up scene
     // Load Piegoblin model with FBXLoader
     const fbxLoader = new FBXLoader();
     fbxLoader.load('Pie_Goblin_1110143250.fbx', (object: THREE.Object3D) => {
-        const textureLoader = new THREE.TextureLoader();
-        const texture = textureLoader.load('texture-pie-18701720.webp'); 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 5; i++) {
             const piegoblin = object.clone();
 
-            // Change color of the mesh to 0xc4a160
-            piegoblin.traverse((child: THREE.Object3D) => {
-                if ((child as THREE.Mesh).isMesh) {
-                    const mesh = child as THREE.Mesh;
-                    // Remove existing material if necessary
-                    if (Array.isArray(mesh.material)) {
-                        mesh.material.forEach(material => material.dispose());
-                    } else {
-                        mesh.material.dispose();
-                    }
-                    // Assign a new material with the loaded texture
-                    const material = new THREE.MeshStandardMaterial({ map: texture });
-                    mesh.material = material;
-                }
-            });
+            
 
             // Initialize position randomly at a higher start point and varying depth
             resetPiegoblinPosition(piegoblin);
@@ -119,12 +103,12 @@ async function init(): Promise<void> {    // Set up scene
     fontLoader.load('Rubik_Beastly_Regular.json', (font) => {
         const textMaterial = new THREE.MeshStandardMaterial({ color: 0xc4a160 });
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i <5; i++) {
             const textGeometry1 = new TextGeometry('COMING', {
                 font: font,
                 size: 1.7,
                 depth: 1,
-                curveSegments: 36,
+                curveSegments: 12,
                 bevelEnabled: true,
                 bevelThickness: 0.1,
                 bevelSize: 0.2,
@@ -140,7 +124,7 @@ async function init(): Promise<void> {    // Set up scene
                 font: font,
                 size: 1.7,
                 depth: 1,
-                curveSegments: 36,
+                curveSegments: 12,
                 bevelEnabled: true,
                 bevelThickness: 0.1,
                 bevelSize: 0.2,
