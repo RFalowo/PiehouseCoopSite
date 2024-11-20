@@ -17,7 +17,7 @@ function loadGoogleFonts(): void {
     document.head.appendChild(link2);
 
     const link3 = document.createElement('link');
-    link3.href = 'https://fonts.googleapis.com/css2?family=Rubik+Beastly&family=Rubik+Mono+One&display=swap';
+    link3.href = 'https://fonts.googleapis.com/css2?family=Frijole&family=Rubik+Beastly&family=Rubik+Mono+One&display=swap';
     link3.rel = 'stylesheet';
     document.head.appendChild(link3);
 }
@@ -202,7 +202,7 @@ function createTextMask(): void {
     clipPath.setAttribute("id", "textClip");
 
     // Dynamically adjust font size based on viewport dimensions
-    const fontSize = Math.min(window.innerWidth, window.innerHeight) * 0.35; // Increased multiplier for larger text
+    const fontSize = Math.min(window.innerWidth, window.innerHeight) * 0.3; // Increased multiplier for larger text
 
     // Create "COMING" text element
     const textLine1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -211,8 +211,9 @@ function createTextMask(): void {
     textLine1.setAttribute("dominant-baseline", "middle");
     textLine1.setAttribute("text-anchor", "middle");
     textLine1.setAttribute("font-size", `${fontSize}px`);
-    textLine1.setAttribute("font-family", "Rubik Beastly");
+    textLine1.setAttribute("font-family", "Frijole");
     textLine1.setAttribute("font-weight", "bold");
+    textLine1.setAttribute("letter-spacing", "-0.05em"); // Adjust letter spacing for overlap
     textLine1.textContent = "COMING";
 
     // Create "SOON" text element
@@ -222,8 +223,9 @@ function createTextMask(): void {
     textLine2.setAttribute("dominant-baseline", "middle");
     textLine2.setAttribute("text-anchor", "middle");
     textLine2.setAttribute("font-size", `${fontSize}px`);
-    textLine2.setAttribute("font-family", "Rubik Beastly");
+    textLine2.setAttribute("font-family", "Frijole");
     textLine2.setAttribute("font-weight", "bold");
+    textLine2.setAttribute("letter-spacing", "-0.05em"); // Adjust letter spacing for overlap
     textLine2.textContent = "SOON";
 
     // Append both lines of text to the clipPath
