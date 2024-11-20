@@ -102,7 +102,7 @@ async function init(): Promise<void> {    // Set up scene
                 y: Math.random() * 0.02 - 0.01,
                 z: Math.random() * 0.02 - 0.01
             };
-            const fallSpeed = Math.random() * 0.03 + 0.02; // Increase range of fall speed
+            const fallSpeed = Math.random() * 0.05 + 0.02; // Increase range of fall speed
 
             // Add the piegoblin and its properties to the array
             piegoblins.push({ mesh: piegoblin, rotationSpeed, fallSpeed });
@@ -275,8 +275,8 @@ function animate(): void {
 function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
     piegoblin.position.set(
         Math.random() * 40 - 20, // Random X position, spaced out horizontally
-        35 + Math.random() * 10, // Random Y position, spaced out vertically above view
-        Math.random() * 50 - 25 // Random Z position, allowing greater depth range
+        50, // Random Y position, spaced out vertically above view
+        Math.random() * 40 - 25 // Random Z position, allowing greater depth range
     );
 }
 
@@ -284,8 +284,8 @@ function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
 function resetTextPosition(text: THREE.Object3D): void {
     text.position.set(
         Math.random() * 40 - 20, // Random X position, spaced out horizontally
-        35 + Math.random() * 10, // Random Y position, spaced out vertically above view
-        Math.random() * 50 - 25 // Random Z position, allowing greater depth range
+        50, // Random Y position, spaced out vertically above view
+        Math.random() * 40 - 25 // Random Z position, allowing greater depth range
     );
 }
 
@@ -300,7 +300,7 @@ function getRandomRotationSpeed(): { x: number; y: number; z: number } {
 
 // Function to get random fall speed
 function getRandomFallSpeed(): number {
-    return Math.random() * 0.03 + 0.02; // Increase range of fall speed
+    return Math.random() * 0.06 + 0.02; // Increase range of fall speed
 }
 
 // Function to create "COMING SOON" text with mask effect
