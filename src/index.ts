@@ -202,20 +202,20 @@ function createTextMask(): void {
     clipPath.setAttribute("id", "textClip");
 
     // Dynamically adjust font size based on viewport dimensions
-    const fontSize = Math.min(window.innerWidth, window.innerHeight) *  (window.innerWidth < 768 ? 0.15 : 0.3); // Increased multiplier for larger text and disciminate between mobile and desktop
-    const heightStretch = window.innerWidth < 768 ? 1.9 : 2; 
+    const fontSize = Math.min(window.innerWidth, window.innerHeight) *  (window.innerWidth < 768 ? 0.17 : 0.3); // Increased multiplier for larger text and disciminate between mobile and desktop
+    const heightStretch = window.innerWidth < 768 ? 5 : 2; 
 
 
     // Create "COMING" text element
     const textLine1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
     textLine1.setAttribute("x", "50%");
-    textLine1.setAttribute("y", window.innerWidth < 768 ? "20%" : "15%");
+    textLine1.setAttribute("y", window.innerWidth < 768 ? "6%" : "15%");
     textLine1.setAttribute("dominant-baseline", "middle");
     textLine1.setAttribute("text-anchor", "middle");
     textLine1.setAttribute("font-size", `${fontSize}px`);
     textLine1.setAttribute("font-family", "Frijole");
     textLine1.setAttribute("font-weight", "bold");
-    textLine1.setAttribute("letter-spacing", window.innerWidth < 768 ? "-0.15em" : "-0.18em");
+    textLine1.setAttribute("letter-spacing", window.innerWidth < 768 ? "-0.18em" : "-0.18em");
     textLine1.setAttribute("transform", `scale(1, ${heightStretch})`);
 
     textLine1.textContent = "COMING";
@@ -223,13 +223,13 @@ function createTextMask(): void {
     // Create "SOON" text element
     const textLine2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
     textLine2.setAttribute("x", "50%");
-    textLine2.setAttribute("y", window.innerWidth < 768 ? "40%" : "35%");
+    textLine2.setAttribute("y", window.innerWidth < 768 ? "12%" : "35%");
     textLine2.setAttribute("dominant-baseline", "middle");
     textLine2.setAttribute("text-anchor", "middle");
     textLine2.setAttribute("font-size", `${fontSize}px`);
     textLine2.setAttribute("font-family", "Frijole");
     textLine2.setAttribute("font-weight", "bold");
-    textLine2.setAttribute("letter-spacing", window.innerWidth < 768 ? "-0.15em" : "-0.18em");
+    textLine2.setAttribute("letter-spacing", window.innerWidth < 768 ? "-0.18em" : "-0.18em");
     textLine2.setAttribute("transform", `scale(1, ${heightStretch})`);
 
     textLine2.textContent = "SOON";
