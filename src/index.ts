@@ -203,7 +203,7 @@ function createTextMask(): void {
 
     // Dynamically adjust font size based on viewport dimensions
     const fontSize = Math.min(window.innerWidth, window.innerHeight) *  (window.innerWidth < 768 ? 0.15 : 0.3); // Increased multiplier for larger text and disciminate between mobile and desktop
-    const heightStretch = window.innerWidth < 768 ? 1.5 : 2; 
+    const heightStretch = window.innerWidth < 768 ? 1.9 : 2; 
 
 
     // Create "COMING" text element
