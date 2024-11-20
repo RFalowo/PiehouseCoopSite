@@ -78,7 +78,19 @@ async function init(): Promise<void> {    // Set up scene
         for (let i = 0; i < 5; i++) {
             const piegoblin = object.clone();
 
-            
+            // Change color of the mesh to 0xc4a160
+            piegoblin.traverse((child: THREE.Object3D) => {
+                if ((child as THREE.Mesh).isMesh) {
+                    const mesh = child as THREE.Mesh;
+                    // Remove existing material if necessary
+                    if (Array.isArray(mesh.material)) {
+                        mesh.material.forEach(material => material.dispose());
+                    } else {
+                        mesh.material.dispose();
+                    }
+                    
+                }
+            });
 
             // Initialize position randomly at a higher start point and varying depth
             resetPiegoblinPosition(piegoblin);
