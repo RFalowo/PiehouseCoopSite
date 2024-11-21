@@ -346,7 +346,7 @@ function animate(): void {
         piegoblins.forEach((otherPiegoblin, otherIndex) => {
             if (index !== otherIndex) {
                 const distance = piegoblinData.mesh.position.distanceTo(otherPiegoblin.mesh.position);
-                if (distance < 3) { // Adjust this threshold as needed
+                if (distance < 5) { // Adjust this threshold as needed
                     piegoblinData.mesh.position.x += (piegoblinData.mesh.position.x - otherPiegoblin.mesh.position.x) * 0.01;
                     piegoblinData.mesh.position.z += (piegoblinData.mesh.position.z - otherPiegoblin.mesh.position.z) * 0.01;
                 }
