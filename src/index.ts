@@ -328,8 +328,8 @@ function animate(): void {
 
 // Function to map Z position to a corresponding Y position
 function mapZToY(z: number): number {
-    const minZ = -25;
-    const maxZ = 25;
+    const minZ = -10;
+    const maxZ = 10;
     const minY = 30;
     const maxY = 45;
     return ((z - minZ) / (maxZ - minZ)) * (maxY - minY) + minY;
@@ -349,10 +349,9 @@ function resetTextPosition(text: THREE.Object3D): void {
     const z = Math.random() * 50 - 25; // Random X position, spaced out horizontally
     const y = mapZToY(z); // Map Z position to Y position
     text.position.set(
-        z,
+        Math.random() * 50 - 25, // Random X position, spaced out horizontally
         y, // Random Y position, spaced out vertically above view
-        Math.random() * 20 - 10 // Random Z position, allowing greater depth range
-    );
+        z    );
 }
 
 // Function to get random rotation speed
