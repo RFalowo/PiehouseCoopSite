@@ -356,7 +356,7 @@ function animate(): void {
         
 
         // Reset position if out of view (optimization)
-        if (piegoblinData.mesh.position.y < -50) { // Drop objects further out of view
+        if (piegoblinData.mesh.position.y < -40) { // Drop objects further out of view
             resetPiegoblinPosition(piegoblinData.mesh);
         }
     });
@@ -383,7 +383,7 @@ function animate(): void {
 function mapZToY(z: number): number {
     const minZ = -10;
     const maxZ = 10;
-    const minY = 60;
+    const minY = 50;
     const maxY = 30;
     return ((z - minZ) / (maxZ - minZ)) * (maxY - minY) + minY;
 }
@@ -392,7 +392,7 @@ function mapZToY(z: number): number {
 function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
     piegoblin.position.set(
         Math.random() * 15 - 7, // Random X position, spaced out horizontally
-        35, // Random Y position, spaced out vertically above view
+        32, // Random Y position, spaced out vertically above view
         Math.random() * 20  // Random Z position, allowing greater depth range
     );
 }
@@ -418,7 +418,7 @@ function getRandomRotationSpeed(): { x: number; y: number; z: number } {
 
 // Function to get random fall speed
 function getRandomFallSpeed(): number {
-    return Math.random() * 0.05 + 0.01; // Increase range of fall speed
+    return Math.random() * 0.075 + 0.01; // Increase range of fall speed
 }
 
 // Function to create "COMING SOON" text with mask effect
