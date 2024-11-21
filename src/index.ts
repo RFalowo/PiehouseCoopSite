@@ -330,7 +330,7 @@ function animate(): void {
 function mapZToY(z: number): number {
     const minZ = -10;
     const maxZ = 10;
-    const minY = 45;
+    const minY = 50;
     const maxY = 30;
     return ((z - minZ) / (maxZ - minZ)) * (maxY - minY) + minY;
 }
