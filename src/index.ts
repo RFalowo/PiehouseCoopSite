@@ -84,6 +84,8 @@ let composer: EffectComposer; // Ensure you have a compatible effect composer, s
 let smaaEffect: SMAAEffect;
 let edgesTextureEffect: TextureEffect;
 let effectPass: EffectPass;
+let movingLight: THREE.SpotLight;
+// let spotlighthelper: THREE.SpotLightHelper;
 
 // Initialize the Three.js scene
 async function init(): Promise<void> {    // Set up scene
@@ -96,6 +98,7 @@ async function init(): Promise<void> {    // Set up scene
     // Configure renderer
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 1); // Black background
     document.body.appendChild(renderer.domElement);
 
     // Set up lighting
@@ -105,6 +108,16 @@ async function init(): Promise<void> {    // Set up scene
     const directionalLight = new THREE.DirectionalLight(0xffffff, 10);
     directionalLight.position.set(0, 1, 0).normalize();
     scene.add(directionalLight);
+
+    // Add a moving light to the scene
+    movingLight = new THREE.SpotLight(0xffffff, 400);
+    movingLight.position.set(20, 10, 20); // Initial position
+    movingLight.target.position.set(0, 0, 0); // Point to the center of the scene
+    scene.add(movingLight);
+    scene.add(movingLight.target);
+
+    // spotlighthelper = new THREE.SpotLightHelper( movingLight );
+	// scene.add( spotlighthelper );
 
     // Load Piegoblin model with FBXLoader
     const fbxLoader = new FBXLoader();
@@ -253,7 +266,7 @@ async function init(): Promise<void> {    // Set up scene
     });
     
     // Configure edge detection settings as requested
-    smaaEffect.edgeDetectionMaterial.setEdgeDetectionThreshold(0.005);
+    smaaEffect.edgeDetectionMaterial.setEdgeDetectionThreshold(0.002);
     smaaEffect.edgeDetectionMaterial.setLocalContrastAdaptationFactor(2.3);
     
     // Create texture effect for SMAA edges visualization
@@ -279,6 +292,14 @@ async function init(): Promise<void> {    // Set up scene
 // Function to animate Piegoblin objects
 function animate(): void {
     requestAnimationFrame(animate);
+
+    const time = Date.now() * 0.001; // Get the current time in seconds
+
+    // Update the moving light's position
+    movingLight.position.x = 20 * Math.cos(time * 0.16); // Adjust the speed with the multiplier
+    movingLight.position.z = 20 * Math.sin(time * 0.16); // Adjust the speed with the multiplier
+    movingLight.position.y = 10; // Keep the light on the XZ plane
+    // spotlighthelper.update();
 
     piegoblins.forEach((piegoblinData, index) => {
         // Apply falling animation with varying speeds
@@ -435,7 +456,7 @@ function createTextMask(): void {
     document.body.style.backgroundColor = "#b2a7a4 ";
 
     // Set the Three.js renderer background to black
-    renderer.setClearColor(0x000000, 1); // Black background
+    
 }
 // Add event listener to redirect to another site when clicked anywhere
 document.addEventListener('click', () => {
