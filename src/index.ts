@@ -171,7 +171,7 @@ async function init(): Promise<void> {    // Set up scene
                 y: Math.random() * 0.025 - 0.01,
                 z: Math.random() * 0.025 - 0.01
             };
-            const fallSpeed = Math.random() * 0.05 + 0.01; // Increase range of fall speed
+            const fallSpeed = Math.random() * 0.075 + 0.01; // Increase range of fall speed
 
             // Add the piegoblin and its properties to the array
             piegoblins.push({ mesh: piegoblin, rotationSpeed, fallSpeed });
@@ -328,8 +328,8 @@ function animate(): void {
     const time = Date.now() * 0.001; // Get the current time in seconds
 
     // Update the moving light's position
-    movingLight.position.x = 20 * Math.cos(time * 0.16); // Adjust the speed with the multiplier
-    movingLight.position.z = 20 * Math.sin(time * 0.16); // Adjust the speed with the multiplier
+    movingLight.position.x = 20 * Math.cos(time * 0.2); // Adjust the speed with the multiplier
+    movingLight.position.z = 20 * Math.sin(time * 0.2); // Adjust the speed with the multiplier
     movingLight.position.y = 10; // Keep the light on the XZ plane
     // spotlighthelper.update();
 
@@ -347,8 +347,8 @@ function animate(): void {
             if (index !== otherIndex) {
                 const distance = piegoblinData.mesh.position.distanceTo(otherPiegoblin.mesh.position);
                 if (distance < 5) { // Adjust this threshold as needed
-                    piegoblinData.mesh.position.x += (piegoblinData.mesh.position.x - otherPiegoblin.mesh.position.x) * 0.01;
-                    piegoblinData.mesh.position.z += (piegoblinData.mesh.position.z - otherPiegoblin.mesh.position.z) * 0.01;
+                    piegoblinData.mesh.position.x += (piegoblinData.mesh.position.x - otherPiegoblin.mesh.position.x) * 0.03;
+                    piegoblinData.mesh.position.z += (piegoblinData.mesh.position.z - otherPiegoblin.mesh.position.z) * 0.03;
                 }
             }
         });
