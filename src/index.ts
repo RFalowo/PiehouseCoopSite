@@ -326,6 +326,15 @@ function animate(): void {
     composer.render();
 }
 
+// Function to map Z position to a corresponding Y position
+function mapZToY(z: number): number {
+    const minZ = -25;
+    const maxZ = 25;
+    const minY = 30;
+    const maxY = 45;
+    return ((z - minZ) / (maxZ - minZ)) * (maxY - minY) + minY;
+}
+
 // Reset position to make the Piegoblin reappear at random locations above view
 function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
     piegoblin.position.set(
@@ -337,9 +346,11 @@ function resetPiegoblinPosition(piegoblin: THREE.Object3D): void {
 
 // Function to reset position of text objects
 function resetTextPosition(text: THREE.Object3D): void {
+    const z = Math.random() * 50 - 25; // Random X position, spaced out horizontally
+    const y = mapZToY(z); // Map Z position to Y position
     text.position.set(
-        Math.random() * 50 - 25, // Random X position, spaced out horizontally
-        35, // Random Y position, spaced out vertically above view
+        z,
+        y, // Random Y position, spaced out vertically above view
         Math.random() * 20 - 10 // Random Z position, allowing greater depth range
     );
 }
