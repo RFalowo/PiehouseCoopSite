@@ -233,7 +233,7 @@ async function init(): Promise<void> {    // Set up scene
 
         setTimeout(() => {
             window.location.href = 'https://www.crowdfunder.co.uk/p/the-piehouse-returns-help-us-open-the-doors'; // Replace with your desired URL
-        }, 30000); // 30 seconds in milliseconds
+        }, 45000); // 30 seconds in milliseconds
 
     });
     // Set up EffectComposer and SMAA
