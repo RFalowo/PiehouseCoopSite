@@ -28,11 +28,16 @@ function loadGoogleFonts(): void {
 }
 
 // Call the function to load Google Fonts
-loadGoogleFonts();
+//loadGoogleFonts();
+
 
 // Add CSS for the loading screen
 const style = document.createElement('style');
 style.innerHTML = `
+  @font-face {
+        font-family: 'CustomFont';
+        src: url('RubikBeastly-Regular.ttf') format('truetype'); 
+      }
   body {
     margin: 0;
     background-color: black; /* Set background color to black */
@@ -47,15 +52,9 @@ style.innerHTML = `
     justify-content: center;
     align-items: center;
     font-size: 4em;
-    font-family: 'Rubik Beastly', sans-serif; /* Use Google Font */
+    font-family: 'CustomFont'; /* Use Google Font */
     z-index: 1000;
   }
-`;
-document.head.appendChild(style);
-
-// Add CSS for the overlay text
-const overlayStyle = document.createElement('style');
-overlayStyle.innerHTML = `
   #overlay-text {
     position: fixed;
     top: 50%;
@@ -67,12 +66,14 @@ overlayStyle.innerHTML = `
     padding: 20px;
     border-radius: 10px;
     text-align: center;
-    font-size: 1.5em;
-    font-family: 'Rubik Beastly', sans-serif; /* Use Google Font */
+    font-size: 1em;
+    font-family: 'CustomFont', sans-serif; /* Use Google Font */
     z-index: 1001; /* Ensure it is above other elements */
   }
 `;
-document.head.appendChild(overlayStyle);
+document.head.appendChild(style);
+
+
 
 // Add HTML for the loading screen
 const loadingScreen = document.createElement('div');

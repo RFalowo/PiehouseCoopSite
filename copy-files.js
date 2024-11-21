@@ -5,6 +5,7 @@ const files = [
     'texture-pie-18701720.webp',
     'Pie_Goblin_1110143250.fbx',
     'Rubik_Beastly_Regular.json',
+    'RubikBeastly-Regular.ttf',
 ];
 for (const file of files) {
     const srcFile = path.join(__dirname, file);
