@@ -53,6 +53,27 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
+// Add CSS for the overlay text
+const overlayStyle = document.createElement('style');
+overlayStyle.innerHTML = `
+  #overlay-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background: rgba(0, 0, 0, 0); /* Semi-transparent background */
+    display:block;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.5em;
+    font-family: 'Rubik Beastly', sans-serif; /* Use Google Font */
+    z-index: 1001; /* Ensure it is above other elements */
+  }
+`;
+document.head.appendChild(overlayStyle);
+
 // Add HTML for the loading screen
 const loadingScreen = document.createElement('div');
 loadingScreen.id = 'loading-screen';
@@ -243,10 +264,20 @@ async function init(): Promise<void> {    // Set up scene
             texts.push({ mesh: textMesh5, rotationSpeed: getRandomRotationSpeed(), fallSpeed: getRandomFallSpeed() });
         }
         loadingScreen.style.display = 'none';
+        // Add HTML for the overlay text
+        const overlayText = document.createElement('div');
+        overlayText.id = 'overlay-text';
+        overlayText.innerHTML = `
+        <p>We’re thrilled to announce that the beloved Piehouse is reopening in early 2025—but we need your help to get there!</p>
+        <p>We’re raising funds to cover essential costs and ensure the venue is sustainable in its first months. Find out more and support us on our Crowdfunder page.</p>
+        <p>Thank you for your support—watch this space!</p>
+        <p><strong>Click to go to our Crowdfunder</strong></p>
+        `;
+        document.body.appendChild(overlayText);
 
-        setTimeout(() => {
-            window.location.href = 'https://www.crowdfunder.co.uk/p/the-piehouse-returns-help-us-open-the-doors'; // Replace with your desired URL
-        }, 45000); // 30 seconds in milliseconds
+        // setTimeout(() => {
+        //     window.location.href = 'https://www.crowdfunder.co.uk/p/the-piehouse-returns-help-us-open-the-doors'; // Replace with your desired URL
+        // }, 45000); // 30 seconds in milliseconds
 
     });
     // Set up EffectComposer and SMAA
